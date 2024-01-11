@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Roboto+Slab:wght@500&display=swap");
+
+.inputDesign {
+  height: 3em;
+  width: 20em;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+
+  border-radius: 0.5em;
+  border: 5px solid gold;
+
+  margin-bottom: 1.5em;
+  background-color: transparent;
+  opacity: 80%;
+}
+
+input::placeholder {
+  text-align: center;
+  font-family: cursive;
+  font-weight: bold;
+  font-size: 1.5em;
+  opacity: 1;
+  color: white;
+}
+
+.labelLogin {
+  font-family: agbalumo;
+  font-size: 2.5em;
+  font: bold;
+  color: #ff69b4;
+  text-shadow: rgba(0, 0, 0, 1) 0px -3px 36px;
+}
+
+.labelRegister {
+  font-family: agbalumo;
+  font-size: 2.5em;
+  font: bold;
+  color: #ff69b4;
+  text-shadow: rgba(0, 0, 0, 1) 0px -3px 36px;
+}
+
+.inputDesignError {
+  border: 0.2em solid gold;
+}
