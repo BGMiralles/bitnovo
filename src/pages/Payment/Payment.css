@@ -28,6 +28,7 @@ label{
   
   .customInputStyle {
     width: 100%;
+    color: black;
     padding: 0.625em;
     margin-bottom: 0.9375em;
     box-sizing: border-box;
@@ -59,8 +60,13 @@ label{
     font-size: 1em;
     text-align: center;
     text-decoration: none;
+    /* opacity: 1; */
   }
   
+.linkButtonDesign:disabled {
+    background-color: cyan;
+  }
+
   .linkButtonDesign:hover {
     background-color: #0056b3;
   }

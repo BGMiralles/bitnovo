@@ -18,7 +18,7 @@ export const CustomInput = ({
       type={type}
       name={name}
       placeholder={placeholder}
-      value={value || undefined}
+      value={value === undefined ? '' : value}
       onChange={(e) => functionProp(e)}
       onBlur={(e) => functionBlur(e)}
     />

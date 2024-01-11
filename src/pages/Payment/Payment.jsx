@@ -6,15 +6,25 @@ import { LinkButton } from "../../common/LinkButton/LinkButton";
 import { getCurrencies } from "../../services/apiCalls";
 
 const Payment = () => {
-  const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [concept, setConcept] = useState("");
+  const [transaccion, setTransaccion] = useState({
+    amount: "",
+    paymentMethod: "",
+    concept: "",
+  });
   const [paymentOptions, setPaymentOptions] = useState([]);
+
+  const functionHandler = (e) => {
+    setTransaccion((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     const fetchPaymentOptions = async () => {
       try {
         const currenciesResponse = await getCurrencies();
+        setPaymentOptions(currenciesResponse.data);
         console.log("Respuesta exitosa:", currenciesResponse.data);
       } catch (error) {
         console.error("Error al obtener las opciones de la API:", error);
@@ -24,10 +34,14 @@ const Payment = () => {
     fetchPaymentOptions();
   }, []);
 
+  const isButtonDisabled = () => {
+    return !transaccion.amount || !transaccion.paymentMethod || !transaccion.concept;
+  };
+
   const handleSubmit = () => {
-    console.log("Amount:", amount);
-    console.log("Payment Method:", paymentMethod);
-    console.log("Concept:", concept);
+    console.log("Amount:", transaccion.amount);
+    console.log("Payment Method:", transaccion.paymentMethod);
+    console.log("Concept:", transaccion.concept);
   };
 
   return (
@@ -40,17 +54,17 @@ const Payment = () => {
           type="text"
           name="amount"
           placeholder="Añade importe a pagar"
-          value={amount}
-          functionProp={(e) => setAmount(e.target.value)}
-          functionBlur={(e) => console.log("Input blurred")}
+          value={transaccion.amount}
+          functionProp={functionHandler}
+          functionBlur={(e) => console.log("hola")}
         />
       </div>
 
       <div className="label-input-container">
         <label htmlFor="paymentMethod">Seleccionar moneda</label>
         <DropdownInput
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
+          value={transaccion.paymentMethod}
+          onChange={(e) => setTransaccion((prevState) => ({ ...prevState, paymentMethod: e.target.value }))}
           options={paymentOptions}
         />
       </div>
@@ -62,13 +76,13 @@ const Payment = () => {
           type="text"
           name="concept"
           placeholder="Añade descripción del pago"
-          value={concept}
-          functionProp={(e) => setConcept(e.target.value)}
-          functionBlur={(e) => console.log("Input blurred")}
+          value={transaccion.concept}
+          functionProp={functionHandler}
+          functionBlur={(e) => console.log(transaccion)}
         />
       </div>
 
-      <LinkButton path="#" title="Continuar" onClick={handleSubmit} />
+      <LinkButton path="#" title="Continuar" onClick={handleSubmit} disabled={isButtonDisabled()} />
     </div>
   );
 };
