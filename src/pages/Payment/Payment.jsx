@@ -13,13 +13,13 @@ const Payment = () => {
 
   useEffect(() => {
     const fetchPaymentOptions = async () => {
-        try {
-            const currenciesResponse = await getCurrencies();
-            console.log('Respuesta exitosa:', currenciesResponse.data);
-          } catch (error) {
-            console.error('Error al obtener las opciones de la API:', error);
-          }
-    };          
+      try {
+        const currenciesResponse = await getCurrencies();
+        console.log("Respuesta exitosa:", currenciesResponse.data);
+      } catch (error) {
+        console.error("Error al obtener las opciones de la API:", error);
+      }
+    };
 
     fetchPaymentOptions();
   }, []);
@@ -31,31 +31,44 @@ const Payment = () => {
   };
 
   return (
-    <div>
-      <CustomInput
-        design="customInputStyle"
-        type="text"
-        name="amount"
-        placeholder="Ingrese el monto"
-        value={amount}
-        functionProp={(e) => setAmount(e.target.value)}
-        functionBlur={(e) => console.log("Input blurred")}
-      />
-      <DropdownInput
-        value={paymentMethod}
-        onChange={(e) => setPaymentMethod(e.target.value)}
-        options={paymentOptions}
-      />
-      <CustomInput
-        design="customInputStyle"
-        type="text"
-        name="concept"
-        placeholder="Ingrese el concepto"
-        value={concept}
-        functionProp={(e) => setConcept(e.target.value)}
-        functionBlur={(e) => console.log("Input blurred")}
-      />
-      <LinkButton path="#" title="Pagar" onClick={handleSubmit} />
+    <div className="payment-container">
+      <div className="titulo">Crear pago</div>
+      <div className="label-input-container">
+        <label htmlFor="amount">Importe a pagar</label>
+        <CustomInput
+          design="customInputStyle"
+          type="text"
+          name="amount"
+          placeholder="Añade importe a pagar"
+          value={amount}
+          functionProp={(e) => setAmount(e.target.value)}
+          functionBlur={(e) => console.log("Input blurred")}
+        />
+      </div>
+
+      <div className="label-input-container">
+        <label htmlFor="paymentMethod">Seleccionar moneda</label>
+        <DropdownInput
+          value={paymentMethod}
+          onChange={(e) => setPaymentMethod(e.target.value)}
+          options={paymentOptions}
+        />
+      </div>
+
+      <div className="label-input-container">
+        <label htmlFor="concept">Concepto</label>
+        <CustomInput
+          design="customInputStyle"
+          type="text"
+          name="concept"
+          placeholder="Añade descripción del pago"
+          value={concept}
+          functionProp={(e) => setConcept(e.target.value)}
+          functionBlur={(e) => console.log("Input blurred")}
+        />
+      </div>
+
+      <LinkButton path="#" title="Continuar" onClick={handleSubmit} />
     </div>
   );
 };
