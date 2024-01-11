@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./Payment.css";
-import { CustomInput } from "./CustomInput";
-import { DropdownInput } from "./DropdownInput";
-import { LinkButton } from "./LinkButton";
+import { CustomInput } from "../../common/CustomInput/Custominput";
+import { DropdownInput } from "../../common/DropdownInput/DropdownInput";
+import { LinkButton } from "../../common/LinkButton/LinkButton";
 
 export const Payment = () => {
-  // Estados para almacenar los valores de los campos
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [concept, setConcept] = useState("");
