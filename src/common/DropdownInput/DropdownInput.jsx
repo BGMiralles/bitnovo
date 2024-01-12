@@ -6,6 +6,7 @@ export const DropdownInput = ({ value, onChange, options }) => {
   const [selectedOption, setSelectedOption] = useState(
     value || (options.length > 0 ? options[0].symbol : "")
   );
+  const [searchTerm, setSearchTerm] = useState("");
   const optionsListRef = useRef();
 
   const handleToggle = () => {
@@ -16,11 +17,13 @@ export const DropdownInput = ({ value, onChange, options }) => {
     setSelectedOption(selectedValue);
     onChange(selectedValue);
     setIsOpen(false);
+    setSearchTerm("");
   };
 
   const handleClickOutside = (event) => {
     if (optionsListRef.current && !optionsListRef.current.contains(event.target)) {
       setIsOpen(false);
+      setSearchTerm("");
     }
   };
 
@@ -35,6 +38,10 @@ export const DropdownInput = ({ value, onChange, options }) => {
   useEffect(() => {
     setSelectedOption(value || (options.length > 0 ? options[0].symbol : ""));
   }, [value, options]);
+
+  const filteredOptions = options.filter((option) =>
+    option.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="dropdown-input" ref={optionsListRef}>
@@ -51,7 +58,13 @@ export const DropdownInput = ({ value, onChange, options }) => {
 
       {isOpen && (
         <div className="options-list">
-          {options.map((option) => (
+          <input
+            type="text"
+            placeholder="Buscar..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {filteredOptions.map((option) => (
             <div
               key={option.symbol}
               className="option"

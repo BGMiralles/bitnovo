@@ -3,7 +3,7 @@ import "./Payment.css";
 import { CustomInput } from "../../common/Custominput/Custominput";
 import { DropdownInput } from "../../common/DropdownInput/DropdownInput";
 import { LinkButton } from "../../common/LinkButton/LinkButton";
-import { getCurrencies } from "../../services/apiCalls";
+import { getCurrencies, ordersCreate } from "../../services/apiCalls";
 
 const Payment = () => {
   const [paymentOptions, setPaymentOptions] = useState([]);
@@ -95,8 +95,8 @@ const Payment = () => {
   const functionHandler = (e) => {
     const { name, value } = e.target;
     if (name === 'concept') {
-      if (value.length > 255) {
-        setConceptErrorMessage("El concepto no puede superar los 255 caracteres");
+      if (value.length > 511) {
+        setConceptErrorMessage("El concepto no puede superar los 511 caracteres");
         return;
       } else {
         setConceptErrorMessage(""); 
@@ -159,12 +159,28 @@ const Payment = () => {
     return floatValue >= minValue && floatValue <= maxValue;
   };
 
-  const handleSubmit = () => {
-    console.log("Handle submit called!");
-    console.log("Amount:", transaccion.amount);
-    console.log("Payment Method:", transaccion.paymentMethod);
-    console.log("Concept:", transaccion.concept);
+  const handleSubmit = async () => {
+    try {
+      console.log("handleSubmit ejecutándose...");
+  
+      // Llamada a la API ordersCreate con la información de transaccion
+      const response = await ordersCreate({
+        expected_output_amount: transaccion.amount,
+        input_currency: transaccion.paymentMethod,
+        notes: transaccion.concept,
+        // Puedes agregar más campos según la estructura requerida por la API
+      });
+  
+      // Lógica adicional según la respuesta de la API
+      console.log("Respuesta de ordersCreate:", response);
+  
+      // Aquí puedes realizar cualquier otra acción después de la llamada a la API
+  
+    } catch (error) {
+      console.error("Error al llamar a la API ordersCreate:", error);
+    }
   };
+  
 
   return (
     <div className="total-container">
