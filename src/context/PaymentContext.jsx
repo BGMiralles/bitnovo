@@ -5,10 +5,19 @@ const PaymentContext = createContext();
 const PaymentProvider = ({ children }) => {
   const [paymentInfo, setPaymentInfo] = useState(null);
 
-  const savePaymentInfo = (info) => {
-    setPaymentInfo(info);
-  };
-
+  const savePaymentInfo = async (info) => {
+    try {
+      // Verificar que info tiene un identifier antes de continuar
+      if (info && info.identifier) {
+        setPaymentInfo(info);
+      } else {
+        console.error("Error: No se proporcionó un identifier válido.");
+      }
+    } catch (error) {
+      console.error("Error al guardar la información del pago:", error);
+    }
+  };  
+  console.log("paymentInfo", paymentInfo);
   return (
     <PaymentContext.Provider value={{ paymentInfo, savePaymentInfo }}>
       {children}

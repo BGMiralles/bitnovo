@@ -67,7 +67,6 @@ const Payment = () => {
           },
         ];
         setPaymentOptions(currenciesResponse);
-        console.log("Respuesta exitosa:", currenciesResponse);
       } catch (error) {
         console.error("Error al obtener las opciones de la API:", error);
       }
@@ -164,28 +163,23 @@ const Payment = () => {
   };
 
   const handleSubmit = async () => {
-    console.log('Datos de transaccion para ordersCreate:', {
-      expected_output_amount: transaccion.amount,
-      input_currency: transaccion.paymentMethod,
-      notes: transaccion.concept,
-    });
-
     try {
-      // Llamada a la API ordersCreate con la información de transaccion
       const response = await ordersCreate({
         expected_output_amount: transaccion.amount,
         input_currency: transaccion.paymentMethod,
         notes: transaccion.concept,
       });
-      console.log('Respuesta de ordersCreate:', response);
-
-      // Guarda la información en el contexto
-      savePaymentInfo(response.data);
-
+  
+      if (response.data && response.data.identifier) {
+        savePaymentInfo({ identifier: response.data.identifier });
+      } else {
+        console.error("Error: No se pudo obtener el identificador del pago.");
+      }
     } catch (error) {
-      console.error('Error al llamar a la API ordersCreate:', error);
+      console.error("Error al llamar a la API ordersCreate:", error);
     }
   };
+  
 
   return (
     <div className="total-container">
@@ -236,10 +230,9 @@ const Payment = () => {
           />
         </div>
         <LinkButton
-          path="/pago"
+          path="/paymentinfo"
           title="Continuar"
           onClick={() => {
-            console.log("Botón clicado");
             handleSubmit();
           }}
           disabled={!isFormValid}
