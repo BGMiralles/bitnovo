@@ -94,23 +94,25 @@ const Payment = () => {
 
   const functionHandler = (e) => {
     const { name, value } = e.target;
-    if (name === 'concept') {
+    if (name === "concept") {
       if (value.length > 511) {
-        setConceptErrorMessage("El concepto no puede superar los 511 caracteres");
+        setConceptErrorMessage(
+          "El concepto no puede superar los 511 caracteres"
+        );
         return;
       } else {
-        setConceptErrorMessage(""); 
+        setConceptErrorMessage("");
       }
     }
 
-    if (name === 'paymentMethod') {
+    if (name === "paymentMethod") {
       setTransaccion((prevState) => ({
         ...prevState,
         paymentMethod: value,
-      }));   
+      }));
     }
 
-    if (name === 'amount') {
+    if (name === "amount") {
       setAmountModified(true);
     }
 
@@ -125,15 +127,15 @@ const Payment = () => {
     const selectedCurrency = paymentOptions.find(
       (currency) => currency.symbol === transaccion.paymentMethod
     );
-  
+
     if (!selectedCurrency) {
       setAmountErrorMessage("Seleccione una moneda válida");
       return;
     }
-  
+
     const minValue = parseFloat(selectedCurrency.min_amount);
     const maxValue = parseFloat(selectedCurrency.max_amount);
-  
+
     if (
       transaccion.amount === "" ||
       !/^(\d+(\.\d*)?|\.\d+)$/.test(transaccion.amount) ||
@@ -147,7 +149,7 @@ const Payment = () => {
       setAmountErrorMessage("");
     }
   };
-  
+
   const isValidRange = (value) => {
     const selectedCurrency = paymentOptions.find(
       (currency) => currency.symbol === transaccion.paymentMethod
@@ -160,9 +162,14 @@ const Payment = () => {
   };
 
   const handleSubmit = async () => {
+    console.log("Datos de transaccion para ordersCreate:", {
+      expected_output_amount: transaccion.amount,
+      input_currency: transaccion.paymentMethod,
+      notes: transaccion.concept,
+      // Agrega otros campos según sea necesario
+    });
+
     try {
-      console.log("handleSubmit ejecutándose...");
-  
       // Llamada a la API ordersCreate con la información de transaccion
       const response = await ordersCreate({
         expected_output_amount: transaccion.amount,
@@ -170,17 +177,12 @@ const Payment = () => {
         notes: transaccion.concept,
         // Puedes agregar más campos según la estructura requerida por la API
       });
-  
-      // Lógica adicional según la respuesta de la API
       console.log("Respuesta de ordersCreate:", response);
-  
-      // Aquí puedes realizar cualquier otra acción después de la llamada a la API
-  
+      // Resto del código...
     } catch (error) {
       console.error("Error al llamar a la API ordersCreate:", error);
     }
   };
-  
 
   return (
     <div className="total-container">
@@ -231,9 +233,12 @@ const Payment = () => {
           />
         </div>
         <LinkButton
-          path="/"
+          path="/pago"
           title="Continuar"
-          onClick={handleSubmit}
+          onClick={() => {
+            console.log("Botón clicado");
+            handleSubmit();
+          }}
           disabled={!isFormValid}
         />
       </div>

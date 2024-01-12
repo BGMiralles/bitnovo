@@ -7,6 +7,7 @@ export const Body = () => {
            <Routes>
                <Route path={'*'} element={<Navigate to="/" />}/>
                <Route path="/" element={<Payment />}/>
+               <Route path="/pago" element={<Payment />}/>
            </Routes>
         </>
     )

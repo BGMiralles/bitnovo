@@ -1,16 +1,22 @@
 import "./LinkButton.css";
 import { useNavigate } from "react-router-dom";
 
-export const LinkButton = ({ path, title, disabled }) => {
+export const LinkButton = ({ path, title, disabled, onClick }) => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    if (!disabled) {
+      navigate(path);
+      onClick && onClick();
+    }
+  };
+
   return (
-    <button
-      className={`linkButtonDesign ${disabled ? 'disabled' : ''}`}
-      onClick={!disabled ? () => navigate(path) : undefined}
+    <div
+      className={`linkButtonDesign ${disabled ? "disabled" : ""}`}
+      onClick={handleClick}
     >
       {title}
-    </button>
+    </div>
   );
 };
-
