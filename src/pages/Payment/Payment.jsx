@@ -4,6 +4,7 @@ import { CustomInput } from "../../common/Custominput/Custominput";
 import { DropdownInput } from "../../common/DropdownInput/DropdownInput";
 import { LinkButton } from "../../common/LinkButton/LinkButton";
 import { getCurrencies, ordersCreate } from "../../services/apiCalls";
+import { usePaymentContext } from "../../context/PaymentContext";
 
 const Payment = () => {
   const [paymentOptions, setPaymentOptions] = useState([]);
@@ -11,6 +12,7 @@ const Payment = () => {
   const [amountErrorMessage, setAmountErrorMessage] = useState("");
   const [conceptErrorMessage, setConceptErrorMessage] = useState("");
   const [amountModified, setAmountModified] = useState(false);
+  const { savePaymentInfo } = usePaymentContext();
 
   useEffect(() => {
     const fetchPaymentOptions = async () => {
@@ -162,11 +164,10 @@ const Payment = () => {
   };
 
   const handleSubmit = async () => {
-    console.log("Datos de transaccion para ordersCreate:", {
+    console.log('Datos de transaccion para ordersCreate:', {
       expected_output_amount: transaccion.amount,
       input_currency: transaccion.paymentMethod,
       notes: transaccion.concept,
-      // Agrega otros campos según sea necesario
     });
 
     try {
@@ -175,12 +176,14 @@ const Payment = () => {
         expected_output_amount: transaccion.amount,
         input_currency: transaccion.paymentMethod,
         notes: transaccion.concept,
-        // Puedes agregar más campos según la estructura requerida por la API
       });
-      console.log("Respuesta de ordersCreate:", response);
-      // Resto del código...
+      console.log('Respuesta de ordersCreate:', response);
+
+      // Guarda la información en el contexto
+      savePaymentInfo(response.data);
+
     } catch (error) {
-      console.error("Error al llamar a la API ordersCreate:", error);
+      console.error('Error al llamar a la API ordersCreate:', error);
     }
   };
 

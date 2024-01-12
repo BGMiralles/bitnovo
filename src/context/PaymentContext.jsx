@@ -1,27 +1,25 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
-// Creamos el contexto
 const PaymentContext = createContext();
 
-// Creamos un componente Provider que envolverá a la aplicación
 const PaymentProvider = ({ children }) => {
-  // Aquí definirás el estado y funciones relacionadas con el pago
-  const [paymentData, setPaymentData] = useState(null);
+  const [paymentInfo, setPaymentInfo] = useState(null);
 
-  // Puedes agregar más funciones y estado según sea necesario
+  const savePaymentInfo = (info) => {
+    setPaymentInfo(info);
+  };
 
   return (
-    <PaymentContext.Provider value={{ paymentData, setPaymentData }}>
+    <PaymentContext.Provider value={{ paymentInfo, savePaymentInfo }}>
       {children}
     </PaymentContext.Provider>
   );
 };
 
-// Creamos un hook para consumir el contexto más fácilmente
 const usePaymentContext = () => {
   const context = useContext(PaymentContext);
   if (!context) {
-    throw new Error('usePaymentContext debe ser usado dentro de un PaymentProvider');
+    throw new Error("usePaymentContext must be used within a PaymentProvider");
   }
   return context;
 };

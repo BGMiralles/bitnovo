@@ -4,13 +4,16 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { MantineProvider } from '@mantine/core';
+import { PaymentProvider } from "./context/PaymentContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-      <MantineProvider>
-        <BrowserRouter>
+    <MantineProvider>
+      <BrowserRouter>
+        <PaymentProvider>
           <App />
-        </BrowserRouter>
-      </MantineProvider>
+        </PaymentProvider>
+      </BrowserRouter>
+    </MantineProvider>
   </React.StrictMode>
 );
