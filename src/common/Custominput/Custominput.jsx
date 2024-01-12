@@ -1,26 +1,18 @@
 import React from "react";
 import "./CustomInput.css";
 
-export const CustomInput = ({
-  disabled,
-  design,
-  type,
-  name,
-  placeholder,
-  value,
-  functionProp,
-  functionBlur,
-}) => {
+export const CustomInput = ({ design, type, name, placeholder, value, functionProp, functionBlur, errorMessage }) => {
   return (
-    <input
-      disabled={disabled}
-      className={design}
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      value={value === undefined ? '' : value}
-      onChange={(e) => functionProp(e)}
-      onBlur={(e) => functionBlur(e)}
-    />
+    <div className={design}>
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={functionProp}
+        onBlur={functionBlur}
+      />
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+    </div>
   );
 };

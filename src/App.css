@@ -1,7 +1,17 @@
 #root {
   max-width: 1280px;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
+  overflow: hidden;
+}
+
+body{
+  height: 90vh;
+}
+
+footer{
+  height: 10vh;
 }
 
 .logo {

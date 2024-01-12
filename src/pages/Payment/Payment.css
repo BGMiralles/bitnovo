@@ -1,73 +1,80 @@
 .payment-container {
-    width: 40vw;
-    height: 100%;
-    padding: 1.25em;
-    border: 0.1em solid rgba(128, 128, 128, 0.1);
-    border-radius: 1em;
-  }
-
-label{
-    font-size: 1em;
-    font-weight: bold;
-    margin-bottom: 0.625em;
-    text-align: left;
+  width: 40vw;
+  height: 28em;
+  padding: 1.25em;
+  border: 0.1em solid rgba(128, 128, 128, 0.1);
+  border-radius: 1em;
 }
 
-.titulo{
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 0.625em;
-    justify-content: center;
-    text-align: center;
+.total-container {
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+label {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.625em;
+  text-align: left;
+}
+
+.titulo {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.625em;
+  justify-content: center;
+  text-align: center;
 }
 
 .label-input-container {
-    flex-direction: column;
-    margin-bottom: 1em;
-  }
-  
-  .customInputStyle {
-    width: 100%;
-    color: black;
-    padding: 0.625em;
-    margin-bottom: 0.9375em;
-    box-sizing: border-box;
-    border: 0.0625em solid #ccc;
-    border-radius: 0.3125em;
-    font-size: 1em;
-    background-color: #fff; 
-  }
-  
-  select {
-    width: 100%;
-    padding: 0.625em;
-    margin-bottom: 0.9375em;
-    box-sizing: border-box;
-    border: 0.0625em solid #ccc;
-    border-radius: 0.3125em;
-    font-size: 1em;
-    background-color: #fff; 
-  }
-  
-  .linkButtonDesign {
-    width: 100%;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.625em 0.9375em;
-    border: none;
-    border-radius: 0.3125em;
-    font-size: 1em;
-    text-align: center;
-    text-decoration: none;
-    /* opacity: 1; */
-  }
-  
-.linkButtonDesign:disabled {
-    background-color: cyan;
-  }
+  flex-direction: column;
+  margin-bottom: 1em;
+}
 
-  .linkButtonDesign:hover {
-    background-color: #0056b3;
-  }
-  
+.customInputStyle {
+  width: 100%;
+  color: black;
+  padding: 0.625em;
+  margin-bottom: 0.9375em;
+  box-sizing: border-box;
+  border: 0.0625em solid #ccc;
+  border-radius: 0.3125em;
+  font-size: 1em;
+  background-color: #fff;
+}
+
+select {
+  width: 100%;
+  padding: 0.625em;
+  margin-bottom: 0.9375em;
+  box-sizing: border-box;
+  border: 0.0625em solid #ccc;
+  border-radius: 0.3125em;
+  font-size: 1em;
+  background-color: #fff;
+}
+
+
+.linkButtonDesign {
+  width: 100%;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.625em 0.9375em;
+  border: none;
+  border-radius: 0.3125em;
+  font-size: 1em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.linkButtonDesign:disabled {
+  background-color: cyan;
+  cursor: not-allowed;
+}
+
+.linkButtonDesign:hover {
+  background-color: #0056b3;
+}

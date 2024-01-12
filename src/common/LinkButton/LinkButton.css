@@ -1,0 +1,4 @@
+.linkButtonDesign.disabled {
+    background-color: cyan;
+    cursor: not-allowed;
+  }
