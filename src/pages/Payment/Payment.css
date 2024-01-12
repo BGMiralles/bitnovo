@@ -1,6 +1,6 @@
 .payment-container {
   width: 40vw;
-  height: 28em;
+  height: 23em;
   padding: 1.25em;
   border: 0.1em solid rgba(128, 128, 128, 0.1);
   border-radius: 1em;
@@ -8,16 +8,16 @@
 
 .total-container {
   height: 90vh;
+  display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
+  position: relative;
 }
 
-label {
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom: 0.625em;
-  text-align: left;
+.label-input-container {
+  flex-direction: column;
+  margin-bottom: 1em;
+  position: relative; 
 }
 
 .titulo {
@@ -28,21 +28,20 @@ label {
   text-align: center;
 }
 
-.label-input-container {
-  flex-direction: column;
-  margin-bottom: 1em;
-}
-
 .customInputStyle {
   width: 100%;
   color: black;
-  padding: 0.625em;
-  margin-bottom: 0.9375em;
   box-sizing: border-box;
-  border: 0.0625em solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 0.3125em;
   font-size: 1em;
   background-color: #fff;
+}
+
+input {
+  width: 100%;
+  background-color: white;
+  color: black;
 }
 
 select {
@@ -50,12 +49,11 @@ select {
   padding: 0.625em;
   margin-bottom: 0.9375em;
   box-sizing: border-box;
-  border: 0.0625em solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 0.3125em;
   font-size: 1em;
   background-color: #fff;
 }
-
 
 .linkButtonDesign {
   width: 100%;
@@ -77,4 +75,18 @@ select {
 
 .linkButtonDesign:hover {
   background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.dropdown-input-opened {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
