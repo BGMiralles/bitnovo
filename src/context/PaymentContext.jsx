@@ -4,10 +4,10 @@ const PaymentContext = createContext();
 
 const PaymentProvider = ({ children }) => {
   const [paymentInfo, setPaymentInfo] = useState(null);
+  const [currenciesResponse, setCurrenciesResponse] = useState([]);
 
   const savePaymentInfo = async (info) => {
     try {
-      // Verificar que info tiene un identifier antes de continuar
       if (info && info.identifier) {
         setPaymentInfo(info);
       } else {
@@ -16,10 +16,18 @@ const PaymentProvider = ({ children }) => {
     } catch (error) {
       console.error("Error al guardar la información del pago:", error);
     }
-  };  
-  console.log("paymentInfo", paymentInfo);
+  };
+
+  const saveCurrenciesResponse = (response) => {
+    try {
+      setCurrenciesResponse(response);
+    } catch (error) {
+      console.error("Error al guardar la respuesta de la API de monedas:", error);
+    }
+  };
+
   return (
-    <PaymentContext.Provider value={{ paymentInfo, savePaymentInfo }}>
+    <PaymentContext.Provider value={{ paymentInfo, currenciesResponse, savePaymentInfo, saveCurrenciesResponse }}>
       {children}
     </PaymentContext.Provider>
   );

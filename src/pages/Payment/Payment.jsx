@@ -12,7 +12,7 @@ const Payment = () => {
   const [amountErrorMessage, setAmountErrorMessage] = useState("");
   const [conceptErrorMessage, setConceptErrorMessage] = useState("");
   const [amountModified, setAmountModified] = useState(false);
-  const { savePaymentInfo } = usePaymentContext();
+  const { savePaymentInfo, saveCurrenciesResponse } = usePaymentContext();
 
   useEffect(() => {
     const fetchPaymentOptions = async () => {
@@ -67,6 +67,7 @@ const Payment = () => {
           },
         ];
         setPaymentOptions(currenciesResponse);
+        saveCurrenciesResponse(currenciesResponse);
       } catch (error) {
         console.error("Error al obtener las opciones de la API:", error);
       }

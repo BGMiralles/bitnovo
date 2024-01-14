@@ -3,7 +3,7 @@ import { getPaymentInfo } from "../../services/apiCalls";
 import { usePaymentContext } from "../../context/PaymentContext";
 
 export const PaymentInfo = () => {
-  const { paymentInfo } = usePaymentContext();
+  const { paymentInfo, currenciesResponse } = usePaymentContext();
   const [paymentInfoApi, setPaymentInfoApi] = useState(null);
 
   useEffect(() => {
@@ -28,11 +28,26 @@ export const PaymentInfo = () => {
     }
   }, [paymentInfo, paymentInfoApi]);
 
-  if (!paymentInfoApi || !paymentInfoApi[0]) {
+  if (!paymentInfoApi || !paymentInfoApi[0] || !currenciesResponse) {
     return <div>Esperando el identificador...</div>;
   }
 
   const paymentData = paymentInfoApi[0];
+
+  // Buscar la moneda correspondiente en currenciesResponse
+  const selectedCurrency = currenciesResponse.find(
+    (currency) => currency.symbol === paymentData.currency_id
+  );
+
+  const selectedCurrencyImage = selectedCurrency ? (
+    <img
+      src={selectedCurrency.image}
+      alt={`${selectedCurrency.name} Logo`}
+      style={{ width: "24px", height: "24px", marginRight: "8px" }}
+    />
+  ) : null;
+
+  const selectedCurrencyName = selectedCurrency ? selectedCurrency.name : 'Moneda Desconocida';
 
   return (
     <div>
@@ -40,7 +55,11 @@ export const PaymentInfo = () => {
       <p>
         Importe: {paymentData.fiat_amount}{' '}{'EUR'}
       </p>
-      <p>Moneda Seleccionada: {paymentData.currency_id}</p>
+      <p>
+        Moneda Seleccionada: {selectedCurrencyImage}
+        {selectedCurrencyName}
+      </p>
+      <p>Comercio: {paymentData.merchant_device}</p>
       <p>Fecha: {paymentData.edited_at}</p>
       <p>Concepto: {paymentData.notes}</p>
     </div>
