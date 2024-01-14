@@ -1,0 +1,53 @@
+.payment-info-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.left-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el título */
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para cada párrafo de información */
+p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Estilos específicos para la información de la moneda seleccionada */
+.currency-info {
+  display: flex;
+  align-items: center;
+}
+
+.currency-info img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+/* Estilos para la fecha formateada */
+.formatted-date {
+  font-weight: bold;
+}
+
+.separator-line {
+  border-bottom: 1px solid #ddd;
+  margin: 15px 0;
+}

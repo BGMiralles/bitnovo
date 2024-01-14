@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getPaymentInfo } from "../../services/apiCalls";
 import { usePaymentContext } from "../../context/PaymentContext";
 import { format } from "date-fns";
+import "./PaymentInfo.css";
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
   const [paymentInfoApi, setPaymentInfoApi] = useState(null);
+  const [timeRemaining, setTimeRemaining] = useState(900); // 15 minutes in seconds
 
   useEffect(() => {
     const fetchPaymentInfo = async () => {
@@ -25,9 +27,19 @@ export const PaymentInfo = () => {
   // Efecto adicional para manejar el cambio en identifier después del montaje
   useEffect(() => {
     if (paymentInfo && paymentInfoApi) {
-      // Aquí puedes realizar acciones adicionales si identifier cambia después del montaje
     }
   }, [paymentInfo, paymentInfoApi]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timeRemaining > 0) {
+        setTimeRemaining((prevTime) => prevTime - 1);
+      }
+    }, 1000);
+
+    // Limpiar intervalo cuando el componente se desmonte
+    return () => clearInterval(interval);
+  }, [timeRemaining]);
 
   if (!paymentInfoApi || !paymentInfoApi[0] || !currenciesResponse) {
     return <div>Esperando el identificador...</div>;
@@ -50,19 +62,36 @@ export const PaymentInfo = () => {
 
   const selectedCurrencyName = selectedCurrency ? selectedCurrency.name : 'Moneda Desconocida';
 
+  const formattedDate = format(
+    new Date(paymentData.edited_at),
+    "dd/MM/yyyy HH:mm"
+  );
+
   return (
-    <div>
-      <h2>Información del Pago</h2>
-      <p>
-        Importe: {paymentData.fiat_amount}{' '}{'EUR'}
-      </p>
-      <p>
-        Moneda Seleccionada: {selectedCurrencyImage}
-        {selectedCurrencyName}
-      </p>
-      <p>Comercio: {paymentData.merchant_device}</p>
-      <p>Fecha: {paymentData.edited_at}</p>
-      <p>Concepto: {paymentData.notes}</p>
+    <div className="payment-info-container">
+      <div className="left-container">
+        <h2>Información del Pago</h2>
+        <p>
+          Importe: {paymentData.fiat_amount}{' '}{paymentData.fiat}
+        </p>
+        <div className="separator-line"></div>
+        <p className="currency-info">
+          Moneda Seleccionada: {selectedCurrencyImage}
+          {selectedCurrencyName}
+        </p>
+        <div className="separator-line"></div>
+        <p>Comercio: {paymentData.merchant_device}</p>
+        <p className="formatted-date">
+          Fecha: {formattedDate}
+        </p>
+        <div className="separator-line"></div>
+        <p>Concepto: {paymentData.notes}</p>
+      </div>
+      <div className="right-container">
+        <h2>Realiza el Pago</h2>
+        <p>Tiempo Restante: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toLocaleString('en-US', {minimumIntegerDigits: 2})}</p>
+        {/* Agrega otros elementos según sea necesario */}
+      </div>
     </div>
   );
 };
