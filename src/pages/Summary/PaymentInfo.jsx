@@ -3,7 +3,9 @@ import { getPaymentInfo } from "../../services/apiCalls";
 import { usePaymentContext } from "../../context/PaymentContext";
 import { format } from "date-fns";
 import QRCode from "qrcode.react";
+import CopyToClipboard from "react-copy-to-clipboard";
 import "./PaymentInfo.css";
+import copiarIcono from "../../img/png-clipart-computer-icons-cut-copy-and-paste-copy-paste-blue-angle.png"
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
@@ -62,7 +64,9 @@ export const PaymentInfo = () => {
     />
   ) : null;
 
-  const selectedCurrencyName = selectedCurrency ? selectedCurrency.name : 'Moneda Desconocida';
+  const selectedCurrencyName = selectedCurrency
+    ? selectedCurrency.name
+    : "Moneda Desconocida";
 
   const formattedDate = format(
     new Date(paymentData.edited_at),
@@ -80,29 +84,86 @@ export const PaymentInfo = () => {
   return (
     <div className="payment-info-container">
       <div className="left-container">
-        <h2>Información del Pago</h2>
-        <p>
-          Importe: {paymentData.fiat_amount}{' '}{paymentData.fiat}
+        <h2>Resumen del pedido</h2>
+        <p className="bold">
+          <span className="field-name">Importe:</span>
+          {paymentData.fiat_amount} {paymentData.fiat}
         </p>
         <div className="separator-line"></div>
         <p className="currency-info">
-          Moneda Seleccionada: {selectedCurrencyImage}
+          <span className="field-name">Moneda seleccionada:</span>
+          {selectedCurrencyImage}
           {selectedCurrencyName}
         </p>
         <div className="separator-line"></div>
-        <p>Comercio: {paymentData.merchant_device}</p>
-        <p className="formatted-date">
-          Fecha: {formattedDate}
+        <p>
+          <span className="field-name">Comercio:</span>
+          {paymentData.merchant_device}
+        </p>
+        <p>
+          <span className="field-name">Fecha:</span>
+          {formattedDate}
         </p>
         <div className="separator-line"></div>
-        <p>Concepto: {paymentData.notes}</p>
+        <p>
+          <span className="field-name">Concepto:</span>
+          {paymentData.notes}
+        </p>
       </div>
       <div className="right-container">
         <h2>Realiza el Pago</h2>
-        <p>Tiempo Restante: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toLocaleString('en-US', {minimumIntegerDigits: 2})}</p>
-        <div className="qr-code">
-          {/* Generar código QR con los datos */}
-          <QRCode value={JSON.stringify(qrData)} />
+        <div className="centered">
+          <p>
+            Tiempo Restante: {Math.floor(timeRemaining / 60)}:
+            {(timeRemaining % 60).toLocaleString("en-US", {
+              minimumIntegerDigits: 2,
+            })}
+          </p>
+          <div className="qr-code">
+            <QRCode value={JSON.stringify(qrData)} />
+          </div>
+          <div className="additional-info">
+            <div className="copy-field">
+              <div>
+                Enviar
+                <span className="bold">{" "}{qrData.crypto_amount}{" "}{selectedCurrencyName}</span>
+                <CopyToClipboard text={qrData.crypto_amount}>
+                  <img
+                    src={copiarIcono}
+                    alt="Copiar"
+                    className="copy-button"
+                  />
+                </CopyToClipboard>
+              </div>
+            </div>
+            <div className="copy-field">
+              <div>
+                <span>{paymentData.address}</span>
+                <CopyToClipboard text={paymentData.address}>
+                  <img
+                    src={copiarIcono}
+                    alt="Copiar"
+                    className="copy-button"
+                  />
+                </CopyToClipboard>
+              </div>
+            </div>
+            {paymentData.currency_id === "XRP_TEST" && (
+              <div className="copy-field">
+                <div>
+                  Etiqueta de Destino:
+                  <span>{" "}{paymentData.tag_memo}</span>
+                  <CopyToClipboard text={paymentData.tag_memo}>
+                    <img
+                      src={copiarIcono}
+                      alt="Copiar"
+                      className="copy-button"
+                    />
+                  </CopyToClipboard>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
