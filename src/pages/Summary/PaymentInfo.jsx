@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getPaymentInfo } from "../../services/apiCalls";
 import { usePaymentContext } from "../../context/PaymentContext";
 import { format } from "date-fns";
+import QRCode from "qrcode.react";
 import "./PaymentInfo.css";
 
 export const PaymentInfo = () => {
@@ -27,6 +28,7 @@ export const PaymentInfo = () => {
   // Efecto adicional para manejar el cambio en identifier después del montaje
   useEffect(() => {
     if (paymentInfo && paymentInfoApi) {
+      // Aquí puedes realizar acciones adicionales si identifier cambia después del montaje
     }
   }, [paymentInfo, paymentInfoApi]);
 
@@ -67,6 +69,14 @@ export const PaymentInfo = () => {
     "dd/MM/yyyy HH:mm"
   );
 
+  // Generar datos para el QR
+  const qrData = {
+    address: paymentData.address,
+    crypto_amount: paymentData.crypto_amount,
+    // Asegúrate de manejar el caso en que tag_memo no esté definido
+    tag_memo: paymentData.tag_memo || "",
+  };
+
   return (
     <div className="payment-info-container">
       <div className="left-container">
@@ -90,7 +100,10 @@ export const PaymentInfo = () => {
       <div className="right-container">
         <h2>Realiza el Pago</h2>
         <p>Tiempo Restante: {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toLocaleString('en-US', {minimumIntegerDigits: 2})}</p>
-        {/* Agrega otros elementos según sea necesario */}
+        <div className="qr-code">
+          {/* Generar código QR con los datos */}
+          <QRCode value={JSON.stringify(qrData)} />
+        </div>
       </div>
     </div>
   );
