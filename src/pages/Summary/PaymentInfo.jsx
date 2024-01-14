@@ -28,20 +28,21 @@ export const PaymentInfo = () => {
     }
   }, [paymentInfo, paymentInfoApi]);
 
-  if (!paymentInfo) {
+  if (!paymentInfoApi || !paymentInfoApi[0]) {
     return <div>Esperando el identificador...</div>;
   }
+
+  const paymentData = paymentInfoApi[0];
 
   return (
     <div>
       <h2>Información del Pago</h2>
       <p>
-        Importe: {paymentInfoApi.expected_input_amount}{" "}
-        {paymentInfoApi.input_currency}
+        Importe: {paymentData.fiat_amount}{' '}{'EUR'}
       </p>
-      <p>Moneda Seleccionada: {paymentInfoApi.input_currency}</p>
-      <p>Fecha: {paymentInfoApi.created_at}</p>
-      <p>Concepto: {paymentInfoApi.notes}</p>
+      <p>Moneda Seleccionada: {paymentData.currency_id}</p>
+      <p>Fecha: {paymentData.edited_at}</p>
+      <p>Concepto: {paymentData.notes}</p>
     </div>
   );
 };
