@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getPaymentInfo } from "../../services/apiCalls";
 import { usePaymentContext } from "../../context/PaymentContext";
+import { format } from "date-fns";
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
