@@ -5,7 +5,6 @@ const PaymentContext = createContext();
 const PaymentProvider = ({ children }) => {
   const [paymentInfo, setPaymentInfo] = useState(null);
   const [currenciesResponse, setCurrenciesResponse] = useState([]);
-  console.log("paymentInfo en context", paymentInfo);
 
   const savePaymentInfo = async (info) => {
     try {

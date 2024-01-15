@@ -206,7 +206,6 @@ const Payment = () => {
             value={transaccion.paymentMethod}
             onChange={(e) => {
               const selectedValue = e?.target?.value || e;
-              console.log("Selected Value:", selectedValue);
               setTransaccion((prevState) => ({
                 ...prevState,
                 paymentMethod: selectedValue,

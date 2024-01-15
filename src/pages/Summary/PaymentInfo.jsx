@@ -10,7 +10,8 @@ import copiarIcono from "../../img/copiar.png"
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
   const [paymentInfoApi, setPaymentInfoApi] = useState(null);
-  const [timeRemaining, setTimeRemaining] = useState(900); // 15 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(900); 
+  const [socketData, setSocketData] = useState(null);
 
   useEffect(() => {
     const fetchPaymentInfo = async () => {
@@ -27,12 +28,31 @@ export const PaymentInfo = () => {
     fetchPaymentInfo();
   }, [paymentInfo]);
 
-  // Efecto adicional para manejar el cambio en identifier después del montaje
   useEffect(() => {
-    if (paymentInfo && paymentInfoApi) {
-      // Aquí puedes realizar acciones adicionales si identifier cambia después del montaje
+    if (paymentInfo && paymentInfo.identifier) {
+      const socket = new WebSocket(`wss://payments.pre-bnvo.com/ws/${paymentInfo.identifier}`);
+
+      socket.onopen = () => {
+        console.log("Socket connection opened");
+      };
+
+      socket.onmessage = (e) => {
+        // Manejar los datos del socket aquí y actualizar el estado
+        const socketData = JSON.parse(e.data);
+        console.log("Socket data received:", socketData);
+        setSocketData(socketData);
+      };
+
+      socket.onclose = () => {
+        console.log("Socket connection closed");
+      };
+
+      // Limpiar el socket cuando el componente se desmonte
+      return () => {
+        socket.close();
+      };
     }
-  }, [paymentInfo, paymentInfoApi]);
+  }, [paymentInfo]);
 
   useEffect(() => {
     const interval = setInterval(() => {
