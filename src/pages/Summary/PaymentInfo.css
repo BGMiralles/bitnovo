@@ -1,42 +1,42 @@
 .payment-info-container {
-    height: 70vh;
-    width: 100vw;
-    max-width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 20px auto;
-    margin-top: 10em;
-  }
-  
-  .left-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 48%; 
-    flex: 1;
-    padding: 20px;
-    background-color: #f9fafc;
-    margin-right: 2%; 
-  }
-  
-  .right-container {
-    flex: 1;
-    padding: 20px;
-    width: 48%;
-    
-  }
+  height: 70vh;
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px auto;
+  margin-top: 10em;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 48%;
+  flex: 1;
+  padding: 20px;
+  background-color: #f9fafc;
+  margin-right: 2%;
+}
+
+.right-container {
+  flex: 1;
+  padding: 20px;
+  width: 48%;
+}
 
 .field-name {
-    flex-grow: 1;
-    text-align: left;
-    margin-right: 10px;
-    font-weight: bold;
-  }
+  flex-grow: 1;
+  text-align: left;
+  margin-right: 10px;
+  font-weight: bold;
+}
 
-.bold, .currency-info{
-    font-weight: bold;
+.bold,
+.currency-info {
+  font-weight: bold;
 }
 
 .centered {
@@ -61,11 +61,11 @@ h2 {
 }
 
 .left-container p {
-    display: flex;
-    justify-content: end;
-    margin: 5px 0;
-    width: 100%;
-  }
+  display: flex;
+  justify-content: end;
+  margin: 5px 0;
+  width: 100%;
+}
 
 .copy-field {
   margin-top: 10px;
@@ -101,8 +101,8 @@ h2 {
 }
 
 .copy-field img.copy-button {
-    width: 20px; 
-    height: 20px; 
-    cursor: pointer;
-    margin-left: 5px; 
-  }
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+}

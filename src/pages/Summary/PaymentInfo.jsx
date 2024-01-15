@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import QRCode from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import "./PaymentInfo.css";
-import copiarIcono from "../../img/png-clipart-computer-icons-cut-copy-and-paste-copy-paste-blue-angle.png"
+import copiarIcono from "../../img/copiar.png"
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
