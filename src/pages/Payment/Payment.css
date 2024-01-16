@@ -74,12 +74,12 @@ select {
 }
 
 .linkButtonDesign:disabled {
-  background-color: cyan;
+  background-color: rgb(198,223,254,);
   cursor: not-allowed;
 }
 
 .linkButtonDesign:hover {
-  background-color: #0056b3;
+  background-color: rgb(3,90,197);
 }
 
 .error-message {

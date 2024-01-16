@@ -87,7 +87,7 @@ const Payment = () => {
     const isValid =
       transaccion.amount !== "" &&
       transaccion.concept &&
-      isValidRange(transaccion.amount);
+      isValidRange(transaccion.amount, transaccion.paymentMethod);
     setIsFormValid(isValid);
 
     if (amountModified) {
@@ -97,26 +97,12 @@ const Payment = () => {
 
   const functionHandler = (e) => {
     const { name, value } = e.target;
-    if (name === "concept") {
-      if (value.length > 511) {
-        setConceptErrorMessage(
-          "El concepto no puede superar los 511 caracteres"
-        );
-        return;
-      } else {
-        setConceptErrorMessage("");
-      }
-    }
 
-    if (name === "paymentMethod") {
-      setTransaccion((prevState) => ({
-        ...prevState,
-        paymentMethod: value,
-      }));
-    }
-
-    if (name === "amount") {
-      setAmountModified(true);
+    if (name === "concept" && value.length > 511) {
+      setConceptErrorMessage("El concepto no puede superar los 511 caracteres");
+      return;
+    } else {
+      setConceptErrorMessage("");
     }
 
     setTransaccion((prevState) => ({
@@ -141,7 +127,7 @@ const Payment = () => {
 
     if (
       transaccion.amount === "" ||
-      !/^(\d+(\.\d*)?|\.\d+)$/.test(transaccion.amount) ||
+      !/^\d+(\.\d*)?$/.test(transaccion.amount) ||
       floatValue < minValue ||
       floatValue > maxValue
     ) {
@@ -153,10 +139,16 @@ const Payment = () => {
     }
   };
 
-  const isValidRange = (value) => {
+  const isValidRange = (value, paymentMethod) => {
     const selectedCurrency = paymentOptions.find(
-      (currency) => currency.symbol === transaccion.paymentMethod
+      (currency) => currency.symbol === paymentMethod
     );
+
+    if (!selectedCurrency) {
+      setAmountErrorMessage("Seleccione una moneda válida");
+      return false;
+    }
+
     const minValue = parseFloat(selectedCurrency.min_amount);
     const maxValue = parseFloat(selectedCurrency.max_amount);
     const floatValue = parseFloat(value);
@@ -202,9 +194,7 @@ const Payment = () => {
         <div className="overlay" onClick={() => setIsOpen(false)}></div>
       )}
       <div className={`payment-container ${isOpen ? "dropdown-open" : ""}`}>
-        {isOpen ? null : (
-          <div className="titulo">Crear pago</div>
-        )}
+        {isOpen ? null : <div className="titulo">Crear pago</div>}
         {isOpen ? null : (
           <div className="label-input-container">
             <label htmlFor="amount">Importe a pagar</label>
@@ -238,6 +228,7 @@ const Payment = () => {
                 ...prevState,
                 paymentMethod: selectedValue,
               }));
+              setAmountModified(true);
               handleAmountBlur();
             }}
             options={paymentOptions}

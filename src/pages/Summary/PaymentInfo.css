@@ -106,3 +106,40 @@ h2 {
   cursor: pointer;
   margin-left: 5px;
 }
+
+.waiting-text {
+  color: #555;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 100vw;
+  cursor: wait;
+  text-align: center;
+}
+
+.waiting-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 100vw;
+  text-align: center;
+}
+
+.reloj{
+  width: 24px;
+  height: 24px;
+}
+
+.centered-time{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}

@@ -5,13 +5,14 @@ import { format } from "date-fns";
 import QRCode from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import "./PaymentInfo.css";
-import copiarIcono from "../../img/copiar.png"
+import copiarIcono from "../../img/copiar.png";
 import { useNavigate } from "react-router-dom";
+import reloj from "../../img/reloj-removebg-preview.png";
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
   const [paymentInfoApi, setPaymentInfoApi] = useState(null);
-  const [timeRemaining, setTimeRemaining] = useState(900); 
+  const [timeRemaining, setTimeRemaining] = useState(900);
   const [socketData, setSocketData] = useState(null);
   const navigate = useNavigate();
 
@@ -32,11 +33,13 @@ export const PaymentInfo = () => {
 
   useEffect(() => {
     if (paymentInfo && paymentInfo.identifier) {
-      const socket = new WebSocket(`wss://payments.pre-bnvo.com/ws/${paymentInfo.identifier}`);
+      const socket = new WebSocket(
+        `wss://payments.pre-bnvo.com/ws/${paymentInfo.identifier}`
+      );
       socket.onopen = () => {
         console.log("Socket connection opened");
       };
-  
+
       socket.onmessage = (e) => {
         const socketData = JSON.parse(e.data);
         console.log("Socket data received:", socketData);
@@ -47,11 +50,11 @@ export const PaymentInfo = () => {
           navigate("/vista2");
         }
       };
-  
+
       socket.onclose = () => {
         console.log("Socket connection closed");
       };
-  
+
       return () => {
         socket.close();
       };
@@ -69,7 +72,11 @@ export const PaymentInfo = () => {
   }, [timeRemaining]);
 
   if (!paymentInfoApi || !paymentInfoApi[0] || !currenciesResponse) {
-    return <div>Esperando el identificador...</div>;
+    return (
+      <div className="waiting-container">
+        <div className="waiting-text">Esperando el identificador...</div>;
+      </div>
+    );
   }
 
   const paymentData = paymentInfoApi[0];
@@ -134,8 +141,8 @@ export const PaymentInfo = () => {
       <div className="right-container">
         <h2>Realiza el Pago</h2>
         <div className="centered">
-          <p>
-            Tiempo Restante: {Math.floor(timeRemaining / 60)}:
+          <p className="centered-time">
+            <img className="reloj" src={reloj} alt="Tu imagen" /> {Math.floor(timeRemaining / 60)}:
             {(timeRemaining % 60).toLocaleString("en-US", {
               minimumIntegerDigits: 2,
             })}
@@ -147,13 +154,12 @@ export const PaymentInfo = () => {
             <div className="copy-field">
               <div>
                 Enviar
-                <span className="bold">{" "}{qrData.crypto_amount}{" "}{selectedCurrencyName}</span>
+                <span className="bold">
+                  {" "}
+                  {qrData.crypto_amount} {selectedCurrencyName}
+                </span>
                 <CopyToClipboard text={qrData.crypto_amount}>
-                  <img
-                    src={copiarIcono}
-                    alt="Copiar"
-                    className="copy-button"
-                  />
+                  <img src={copiarIcono} alt="Copiar" className="copy-button" />
                 </CopyToClipboard>
               </div>
             </div>
@@ -161,11 +167,7 @@ export const PaymentInfo = () => {
               <div>
                 <span>{paymentData.address}</span>
                 <CopyToClipboard text={paymentData.address}>
-                  <img
-                    src={copiarIcono}
-                    alt="Copiar"
-                    className="copy-button"
-                  />
+                  <img src={copiarIcono} alt="Copiar" className="copy-button" />
                 </CopyToClipboard>
               </div>
             </div>
@@ -173,7 +175,7 @@ export const PaymentInfo = () => {
               <div className="copy-field">
                 <div>
                   Etiqueta de Destino:
-                  <span>{" "}{paymentData.tag_memo}</span>
+                  <span> {paymentData.tag_memo}</span>
                   <CopyToClipboard text={paymentData.tag_memo}>
                     <img
                       src={copiarIcono}
