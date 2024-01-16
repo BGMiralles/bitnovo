@@ -8,12 +8,16 @@ import "./PaymentInfo.css";
 import copiarIcono from "../../img/copiar.png";
 import { useNavigate } from "react-router-dom";
 import reloj from "../../img/reloj-removebg-preview.png";
+import metamask from "../../img/metamask.png";
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
   const [paymentInfoApi, setPaymentInfoApi] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(900);
   const [socketData, setSocketData] = useState(null);
+  const [showQR, setShowQR] = useState(true);
+  const [web3Connected, setWeb3Connected] = useState(false);
+  const [showWeb3Image, setShowWeb3Image] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -109,6 +113,16 @@ export const PaymentInfo = () => {
     tag_memo: paymentData.tag_memo || "",
   };
 
+  const handleSmartQRButtonClick = () => {
+    setShowQR(true);
+    setShowWeb3Image(false);
+  };
+
+  const handleWeb3ButtonClick = async () => {
+    setShowQR(false);
+    setShowWeb3Image(true);
+  };
+
   return (
     <div className="payment-info-container">
       <div className="left-container">
@@ -142,14 +156,26 @@ export const PaymentInfo = () => {
         <h2>Realiza el Pago</h2>
         <div className="centered">
           <p className="centered-time">
-            <img className="reloj" src={reloj} alt="Tu imagen" /> {Math.floor(timeRemaining / 60)}:
+            <img className="reloj" src={reloj} alt="Reloj" />{" "}
+            {Math.floor(timeRemaining / 60)}:
             {(timeRemaining % 60).toLocaleString("en-US", {
               minimumIntegerDigits: 2,
             })}
           </p>
-          <div className="qr-code">
-            <QRCode value={JSON.stringify(qrData)} />
-          </div>
+          <div className="buttons-container">
+            <button onClick={handleSmartQRButtonClick}>Smart QR</button>
+            <button onClick={handleWeb3ButtonClick}>Web3</button>
+            </div>
+          {showQR && (
+            <div className="qr-code">
+              <QRCode value={JSON.stringify(qrData)} />
+            </div>
+          )}
+          {!showQR && showWeb3Image && (
+            <div className="web3-image">
+              <img src={metamask} alt="Metamask" />
+            </div>
+          )}
           <div className="additional-info">
             <div className="copy-field">
               <div>

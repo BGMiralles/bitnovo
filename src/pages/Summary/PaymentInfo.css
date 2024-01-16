@@ -41,6 +41,9 @@
 
 .centered {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .separator-line {
@@ -143,3 +146,10 @@ h2 {
   justify-content: center;
   margin-top: 20px;
 }
+
+.web3-image{
+  margin-top: 1em;
+  width: 193px; 
+  height: 193px; 
+}
+

@@ -134,3 +134,8 @@ select {
 .payment-container.dropdown-open {
   border: none;
 }
+
+body .label-input-container .customInputStyle:-internal-autofill-selected {
+  background-color: white !important; 
+  color: black !important;
+}
