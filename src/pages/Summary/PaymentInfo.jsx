@@ -123,6 +123,22 @@ export const PaymentInfo = () => {
     setShowWeb3Image(true);
   };
 
+  const connectToMetaMask = async () => {
+    try {
+      // Comprueba si MetaMask está instalado y disponible
+      if (window.ethereum) {
+        // Solicita al usuario la conexión de la cuenta
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        setWeb3Connected(true);
+      } else {
+        console.error("MetaMask no está instalado.");
+      }
+    } catch (error) {
+      console.error("Error al conectar con MetaMask:", error);
+    }
+  };
+  
+
   return (
     <div className="payment-info-container">
       <div className="left-container">
@@ -172,7 +188,7 @@ export const PaymentInfo = () => {
             </div>
           )}
           {!showQR && showWeb3Image && (
-            <div className="web3-image">
+            <div className="web3-image" onClick={connectToMetaMask}>
               <img src={metamask} alt="Metamask" />
             </div>
           )}

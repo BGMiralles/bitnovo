@@ -150,6 +150,7 @@ h2 {
 .web3-image{
   margin-top: 1em;
   width: 193px; 
-  height: 193px; 
+  height: 193px;
+  cursor: pointer;
 }
 
