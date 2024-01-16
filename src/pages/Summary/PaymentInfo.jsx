@@ -6,12 +6,14 @@ import QRCode from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import "./PaymentInfo.css";
 import copiarIcono from "../../img/copiar.png"
+import { useNavigate } from "react-router-dom";
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
   const [paymentInfoApi, setPaymentInfoApi] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(900); 
   const [socketData, setSocketData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPaymentInfo = async () => {
@@ -31,28 +33,30 @@ export const PaymentInfo = () => {
   useEffect(() => {
     if (paymentInfo && paymentInfo.identifier) {
       const socket = new WebSocket(`wss://payments.pre-bnvo.com/ws/${paymentInfo.identifier}`);
-
       socket.onopen = () => {
         console.log("Socket connection opened");
       };
-
+  
       socket.onmessage = (e) => {
-        // Manejar los datos del socket aquí y actualizar el estado
         const socketData = JSON.parse(e.data);
         console.log("Socket data received:", socketData);
         setSocketData(socketData);
+        if (socketData.status === "EX" || socketData.status === "OC") {
+          navigate("/vista1");
+        } else if (socketData.status === "CO" || socketData.status === "AC") {
+          navigate("/vista2");
+        }
       };
-
+  
       socket.onclose = () => {
         console.log("Socket connection closed");
       };
-
-      // Limpiar el socket cuando el componente se desmonte
+  
       return () => {
         socket.close();
       };
     }
-  }, [paymentInfo]);
+  }, [paymentInfo, setSocketData]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -61,7 +65,6 @@ export const PaymentInfo = () => {
       }
     }, 1000);
 
-    // Limpiar intervalo cuando el componente se desmonte
     return () => clearInterval(interval);
   }, [timeRemaining]);
 
@@ -71,7 +74,6 @@ export const PaymentInfo = () => {
 
   const paymentData = paymentInfoApi[0];
 
-  // Buscar la moneda correspondiente en currenciesResponse
   const selectedCurrency = currenciesResponse.find(
     (currency) => currency.symbol === paymentData.currency_id
   );
@@ -97,7 +99,6 @@ export const PaymentInfo = () => {
   const qrData = {
     address: paymentData.address,
     crypto_amount: paymentData.crypto_amount,
-    // Asegúrate de manejar el caso en que tag_memo no esté definido
     tag_memo: paymentData.tag_memo || "",
   };
 
