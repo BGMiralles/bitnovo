@@ -1,15 +1,22 @@
 import React from "react";
-import "./Ok.css"; // Asegúrate de que el nombre del archivo CSS coincida con el nombre del componente
-import { LinkButton } from "../../common/LinkButton/LinkButton";
+import "./Ok.css";
+import { useNavigate } from "react-router-dom";
 
-function Ok() {
+const Ok = () => {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/");
+  };
+
   return (
     <div className="contenedor-externo">
       <div className="contenedor-interno">
         <img src="../src/img/ok.JPG" alt="Ok Icon" className="imagen-ok" />
         <p className="mensaje">¡Pago completado!</p>
         <p className="nuevo-mensaje">Su pago se ha completado correctamente</p>
-        <LinkButton path="/" title="Crear nuevo pago" />
+        <button className="linkButtonDesign" onClick={handleButtonClick}>
+          Crear nuevo pago
+        </button>
       </div>
     </div>
   );

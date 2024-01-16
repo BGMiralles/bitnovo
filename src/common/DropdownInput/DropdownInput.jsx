@@ -70,18 +70,30 @@ export const DropdownInput = ({ value, onChange, options, isOpen, onToggle }) =>
           {filteredOptions.map((option) => (
             <div
               key={option.symbol}
-              className="option"
+              className={`option ${selectedOption === option.symbol ? "selected" : ""}`}
               onClick={() => {
                 handleSelect(option.symbol);
                 onToggle(false);
               }}
             >
-              <img
-                src={option.image}
-                alt={option.name}
-                style={{ width: "20px", marginRight: "5px" }}
-              />
-              {option.name}
+              <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    src={option.image}
+                    alt={option.name}
+                    style={{ width: "20px", marginRight: "5px" }}
+                  />
+                  <span>{option.name}</span>
+                </div>
+                {selectedOption === option.symbol && (
+                  <img
+                    src="../../src/img/tick.JPG" 
+                    alt="Checkmark"
+                    style={{ width: "16px", height: "16px", marginLeft: "auto"}}
+                  />
+                )}
+                {selectedOption !== option.symbol && <span style={{ marginLeft: "auto" }}>&gt;</span>}
+              </div>
             </div>
           ))}
         </div>

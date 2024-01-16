@@ -45,9 +45,9 @@ export const PaymentInfo = () => {
         console.log("Socket data received:", socketData);
         setSocketData(socketData);
         if (socketData.status === "EX" || socketData.status === "OC") {
-          navigate("/vista1");
+          navigate("/ko");
         } else if (socketData.status === "CO" || socketData.status === "AC") {
-          navigate("/vista2");
+          navigate("/ok");
         }
       };
 
