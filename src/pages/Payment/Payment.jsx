@@ -13,6 +13,7 @@ const Payment = () => {
   const [conceptErrorMessage, setConceptErrorMessage] = useState("");
   const [amountModified, setAmountModified] = useState(false);
   const { savePaymentInfo, saveCurrenciesResponse } = usePaymentContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchPaymentOptions = async () => {
@@ -163,6 +164,20 @@ const Payment = () => {
     return floatValue >= minValue && floatValue <= maxValue;
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isOpen && !e.target.closest(".label-input-container")) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
+
   const handleSubmit = async () => {
     try {
       const response = await ordersCreate({
@@ -170,7 +185,7 @@ const Payment = () => {
         input_currency: transaccion.paymentMethod,
         notes: transaccion.concept,
       });
-  
+
       if (response.data && response.data.identifier) {
         savePaymentInfo({ identifier: response.data.identifier });
       } else {
@@ -180,10 +195,9 @@ const Payment = () => {
       console.error("Error al llamar a la API ordersCreate:", error);
     }
   };
-  
 
   return (
-    <div className="total-container">
+    <div className={`total-container ${isOpen ? "menu-open" : ""}`}>
       <div className="payment-container">
         <div className="titulo">Crear pago</div>
         <div className="label-input-container">
@@ -200,8 +214,16 @@ const Payment = () => {
           />
         </div>
 
-        <div className="label-input-container">
-          <label htmlFor="paymentMethod">Seleccionar moneda</label>
+        <div
+          className={`label-input-container ${isOpen ? "dropdown-open" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+        >
+          <label htmlFor="paymentMethod">
+            {isOpen ? "Seleccionar criptomoneda" : "Seleccionar moneda"}
+          </label>
           <DropdownInput
             value={transaccion.paymentMethod}
             onChange={(e) => {
@@ -213,6 +235,8 @@ const Payment = () => {
               handleAmountBlur();
             }}
             options={paymentOptions}
+            isOpen={isOpen}
+            onToggle={setIsOpen}
           />
         </div>
 
