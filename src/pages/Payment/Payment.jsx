@@ -198,22 +198,28 @@ const Payment = () => {
 
   return (
     <div className={`total-container ${isOpen ? "menu-open" : ""}`}>
-      <div className="payment-container">
-        <div className="titulo">Crear pago</div>
-        <div className="label-input-container">
-          <label htmlFor="amount">Importe a pagar</label>
-          <CustomInput
-            design="customInputStyle"
-            type="text"
-            name="amount"
-            placeholder="Añade importe a pagar"
-            value={transaccion.amount}
-            functionProp={functionHandler}
-            functionBlur={handleAmountBlur}
-            errorMessage={amountErrorMessage}
-          />
-        </div>
-
+      {isOpen && (
+        <div className="overlay" onClick={() => setIsOpen(false)}></div>
+      )}
+      <div className={`payment-container ${isOpen ? "dropdown-open" : ""}`}>
+        {isOpen ? null : (
+          <div className="titulo">Crear pago</div>
+        )}
+        {isOpen ? null : (
+          <div className="label-input-container">
+            <label htmlFor="amount">Importe a pagar</label>
+            <CustomInput
+              design="customInputStyle"
+              type="text"
+              name="amount"
+              placeholder="Añade importe a pagar"
+              value={transaccion.amount}
+              functionProp={functionHandler}
+              functionBlur={handleAmountBlur}
+              errorMessage={amountErrorMessage}
+            />
+          </div>
+        )}
         <div
           className={`label-input-container ${isOpen ? "dropdown-open" : ""}`}
           onClick={(e) => {
@@ -239,28 +245,31 @@ const Payment = () => {
             onToggle={setIsOpen}
           />
         </div>
-
-        <div className="label-input-container">
-          <label htmlFor="concept">Concepto</label>
-          <CustomInput
-            design="customInputStyle"
-            type="text"
-            name="concept"
-            placeholder="Añade descripción del pago"
-            value={transaccion.concept}
-            functionProp={functionHandler}
-            functionBlur={() => {}}
-            errorMessage={conceptErrorMessage}
+        {isOpen ? null : (
+          <div className="label-input-container">
+            <label htmlFor="concept">Concepto</label>
+            <CustomInput
+              design="customInputStyle"
+              type="text"
+              name="concept"
+              placeholder="Añade descripción del pago"
+              value={transaccion.concept}
+              functionProp={functionHandler}
+              functionBlur={() => {}}
+              errorMessage={conceptErrorMessage}
+            />
+          </div>
+        )}
+        {isOpen ? null : (
+          <LinkButton
+            path="/paymentinfo"
+            title="Continuar"
+            onClick={() => {
+              handleSubmit();
+            }}
+            disabled={!isFormValid}
           />
-        </div>
-        <LinkButton
-          path="/paymentinfo"
-          title="Continuar"
-          onClick={() => {
-            handleSubmit();
-          }}
-          disabled={!isFormValid}
-        />
+        )}
       </div>
     </div>
   );
