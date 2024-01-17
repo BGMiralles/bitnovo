@@ -10,7 +10,7 @@ Desarrollada como prueba técnica.</p>
 ​
 <h5 align="center"> Tecnologías utilizadas</h1>
 ​
-<p align="center">JavaScript, HTML5, CSS3, Bootstrap, GIT y GitHUB
+<p align="center">JavaScript, HTML5, CSS3, Bootstrap, React, Vite, GIT y GitHUB
 
 <p align = "center" display= "flex">
   <tr >
