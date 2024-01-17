@@ -1,17 +1,18 @@
-/* Ok.css */
-
 .contenedor-externo {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 85vh;
+  height: 300px;
+  width: 426px;
 }
 
 .contenedor-interno {
   padding: 20px;
   border: 1px solid rgba(245, 245, 245, 1);
   border-radius: 16px;
-  text-align: center; /* Alinear texto al centro */
+  text-align: center;
+  height: 300px;
+  width: 426px;
 }
 
 .imagen-ok {

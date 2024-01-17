@@ -9,6 +9,8 @@ import copiarIcono from "../../img/copiar.png";
 import { useNavigate } from "react-router-dom";
 import reloj from "../../img/reloj-removebg-preview.png";
 import metamask from "../../img/metamask.png";
+import comercio from "../../img/comercio.png";
+import informacion from "../../img/info.png";
 
 export const PaymentInfo = () => {
   const { paymentInfo, currenciesResponse } = usePaymentContext();
@@ -137,7 +139,6 @@ export const PaymentInfo = () => {
       console.error("Error al conectar con MetaMask:", error);
     }
   };
-  
 
   return (
     <div className="payment-info-container">
@@ -156,6 +157,7 @@ export const PaymentInfo = () => {
         <div className="separator-line"></div>
         <p>
           <span className="field-name">Comercio:</span>
+          <img className="comercio" src={comercio} alt="Comercio" />{" "}
           {paymentData.merchant_device}
         </p>
         <p>
@@ -179,9 +181,19 @@ export const PaymentInfo = () => {
             })}
           </p>
           <div className="buttons-container">
-            <button onClick={handleSmartQRButtonClick}>Smart QR</button>
-            <button onClick={handleWeb3ButtonClick}>Web3</button>
-            </div>
+            <button
+              onClick={handleSmartQRButtonClick}
+              className={showQR ? "button-true" : "button-false"}
+            >
+              Smart QR
+            </button>
+            <button
+              onClick={handleWeb3ButtonClick}
+              className={showWeb3Image ? "button-true" : "button-false"}
+            >
+              Web3
+            </button>
+          </div>
           {showQR && (
             <div className="qr-code">
               <QRCode value={JSON.stringify(qrData)} />
@@ -192,6 +204,7 @@ export const PaymentInfo = () => {
               <img src={metamask} alt="Metamask" />
             </div>
           )}
+
           <div className="additional-info">
             <div className="copy-field">
               <div>
@@ -216,15 +229,22 @@ export const PaymentInfo = () => {
             {paymentData.currency_id === "XRP_TEST" && (
               <div className="copy-field">
                 <div>
-                  Etiqueta de Destino:
-                  <span> {paymentData.tag_memo}</span>
-                  <CopyToClipboard text={paymentData.tag_memo}>
-                    <img
-                      src={copiarIcono}
-                      alt="Copiar"
-                      className="copy-button"
-                    />
-                  </CopyToClipboard>
+                  <div className="tooltip-container">
+                    <div
+                      className="tooltip-text"
+                      title="Por seguridad debes agregar el TAG de destino cada vez que realices un pago o podrás perder tu dinero."
+                    >
+                      <img src={informacion} alt="Info" className="info" />{" "}
+                      Etiqueta de Destino: {paymentData.tag_memo}
+                      <CopyToClipboard text={paymentData.tag_memo}>
+                        <img
+                          src={copiarIcono}
+                          alt="Copiar"
+                          className="copy-button"
+                        />
+                      </CopyToClipboard>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

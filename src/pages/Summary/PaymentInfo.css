@@ -154,3 +154,72 @@ h2 {
   cursor: pointer;
 }
 
+.comercio{
+  width: 24px; 
+  height: 24px;
+}
+
+.button-true {
+  background-color: blue;
+  color: white;
+  border-radius: 100px;
+}
+
+.button-false {
+  background-color: white;
+  color: rgba(100, 113, 132, 1);
+  border-radius: 100px;
+}
+
+/* Dentro de tu archivo de estilos CSS */
+.tooltip-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.copy-button {
+  width: 24px;
+  height: 24px;
+  margin-left: 5px; /* Ajusta el espacio entre el icono y el texto */
+}
+
+.tooltip-container::after {
+  content: attr(title);
+  opacity: 0;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.tooltip-container::after {
+  display: block;
+  opacity: 0;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+  border: none;  /* Agrega esta línea para eliminar cualquier borde */
+  margin: 0;     /* Agrega esta línea para eliminar cualquier margen */
+  padding: 0;    /* Agrega esta línea para eliminar cualquier relleno */
+}
+
+
+.info{
+  width: 24px;
+  height: 24px;
+}
+
+

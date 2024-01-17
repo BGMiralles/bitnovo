@@ -132,7 +132,7 @@ const Payment = () => {
       floatValue > maxValue
     ) {
       setAmountErrorMessage(
-        `Formato incorrecto o el importe debe estar entre ${minValue} y ${maxValue}`
+        `Formato incorrecto o el importe debe estar entre ${minValue} y ${maxValue}, asegurate de separar los decimales con un punto`
       );
     } else {
       setAmountErrorMessage("");
@@ -212,10 +212,6 @@ const Payment = () => {
         )}
         <div
           className={`label-input-container ${isOpen ? "dropdown-open" : ""}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpen(!isOpen);
-          }}
         >
           <label htmlFor="paymentMethod">
             {isOpen ? "Seleccionar criptomoneda" : "Seleccionar moneda"}
