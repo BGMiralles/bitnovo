@@ -1,0 +1,125 @@
+.total-container {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.payment-container {
+  width: 40vw;
+  height: 25em;
+  padding: 1.25em;
+  border: 0.1em solid rgba(128, 128, 128, 0.1);
+  border-radius: 1em;
+  position: relative;
+  z-index: 2;
+}
+
+.label-input-container {
+  flex-direction: column;
+  margin-bottom: 1em;
+  position: relative;
+  background-color: white;
+  z-index: 2;
+}
+
+.titulo {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.625em;
+  justify-content: center;
+  text-align: center;
+  z-index: 1;
+}
+
+.customInputStyle {
+  width: 100%;
+  color: black;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 0.3125em;
+  font-size: 1em;
+  background-color: #fff;
+}
+
+input {
+  width: 100%;
+  background-color: white;
+  color: black;
+}
+
+.select-container {
+  position: relative;
+}
+
+.select-container .dropdown-input-opened,
+.select-container .dropdown-open {
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.select-container .dropdown-open {
+  top: calc(100% + 5px); /* Ajusta la posición según sea necesario */
+}
+
+.select-container .selected-option {
+  display: block;
+}
+
+.select-container.dropdown-open .selected-option {
+  display: none;
+}
+
+.linkButtonDesign {
+  width: 100%;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.625em 0.9375em;
+  border: none;
+  border-radius: 0.3125em;
+  font-size: 1em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.linkButtonDesign:disabled {
+  background-color: rgb(198, 223, 254);
+  cursor: not-allowed;
+}
+
+.linkButtonDesign:hover {
+  background-color: rgb(3, 90, 197);
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+.total-container.menu-open {
+  border: 0.1em solid rgba(128, 128, 128, 0.1);
+  margin-top: 10em;
+  height: 40vh;
+  width: 40vw;
+  margin-bottom: 22em;
+}
+
+.total-container.menu-open .label-input-container.dropdown-open {
+  position: relative;
+  z-index: 2;
+  border: none;
+}
+
+.payment-container.dropdown-open {
+  border: none;
+}
+
+body .label-input-container .customInputStyle:-internal-autofill-selected {
+  background-color: white !important;
+  color: black !important;
+}

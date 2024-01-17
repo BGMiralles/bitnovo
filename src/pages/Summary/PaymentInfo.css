@@ -1,0 +1,225 @@
+.payment-info-container {
+  height: 70vh;
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px auto;
+  margin-top: 10em;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 48%;
+  flex: 1;
+  padding: 20px;
+  background-color: #f9fafc;
+  margin-right: 2%;
+}
+
+.right-container {
+  flex: 1;
+  padding: 20px;
+  width: 48%;
+}
+
+.field-name {
+  flex-grow: 1;
+  text-align: left;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.bold,
+.currency-info {
+  font-weight: bold;
+}
+
+.centered {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.separator-line {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+  margin: 10px 0;
+}
+
+.currency-info img {
+  vertical-align: middle;
+}
+
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.625em;
+}
+
+.left-container p {
+  display: flex;
+  justify-content: end;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.copy-field {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.copy-field button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.copy-field button:hover {
+  background-color: #0056b3;
+}
+
+.qr-code {
+  margin-top: 20px;
+}
+
+.additional-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-field img.copy-button {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.waiting-text {
+  color: #555;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 100vw;
+  cursor: wait;
+  text-align: center;
+}
+
+.waiting-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  width: 100vw;
+  text-align: center;
+}
+
+.reloj{
+  width: 24px;
+  height: 24px;
+}
+
+.centered-time{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.web3-image{
+  margin-top: 1em;
+  width: 193px; 
+  height: 193px;
+  cursor: pointer;
+}
+
+.comercio{
+  width: 24px; 
+  height: 24px;
+}
+
+.button-true {
+  background-color: blue;
+  color: white;
+  border-radius: 100px;
+}
+
+.button-false {
+  background-color: white;
+  color: rgba(100, 113, 132, 1);
+  border-radius: 100px;
+}
+
+/* Dentro de tu archivo de estilos CSS */
+.tooltip-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.copy-button {
+  width: 24px;
+  height: 24px;
+  margin-left: 5px; /* Ajusta el espacio entre el icono y el texto */
+}
+
+.tooltip-container::after {
+  content: attr(title);
+  opacity: 0;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.tooltip-container::after {
+  display: block;
+  opacity: 0;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+  border: none;  /* Agrega esta línea para eliminar cualquier borde */
+  margin: 0;     /* Agrega esta línea para eliminar cualquier margen */
+  padding: 0;    /* Agrega esta línea para eliminar cualquier relleno */
+}
+
+
+.info{
+  width: 24px;
+  height: 24px;
+}
+
+
