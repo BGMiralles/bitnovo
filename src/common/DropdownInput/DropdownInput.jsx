@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./DropdownInput.css";
+import checkMark from '../../img/tick.png';
 
 export const DropdownInput = ({ value, onChange, options, isOpen, onToggle }) => {
   const [selectedOption, setSelectedOption] = useState(
@@ -86,7 +87,7 @@ export const DropdownInput = ({ value, onChange, options, isOpen, onToggle }) =>
                 </div>
                 {selectedOption === option.symbol && (
                   <img
-                    src="../../src/img/tick.JPG" 
+                    src={checkMark} 
                     alt="Checkmark"
                     style={{ width: "16px", height: "16px", marginLeft: "auto"}}
                   />

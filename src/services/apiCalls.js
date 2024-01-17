@@ -24,13 +24,9 @@ export const getCurrencies = async () => {
 
 export const ordersCreate = async (data) => {
   try {
-    console.log("ordersCreate llamado con datos:", data);
-
     const response = await axios.post(`${API_BASE_URL}/orders/`, data, {
       headers: commonHeaders,
     });
-
-    console.log("Respuesta de ordersCreate:", response);
 
     return response;
   } catch (error) {
@@ -47,7 +43,6 @@ export const getPaymentInfo = async (identifier) => {
     const response = await axios.get(`${API_BASE_URL}/orders/info/${identifier}`, {
       headers: commonHeaders,
     });
-    console.log("Respuesta de getPaymentInfo:", response);
     return response.data;
   } catch (error) {
     throw error;
