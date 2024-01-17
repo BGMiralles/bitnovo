@@ -1,10 +1,11 @@
 import React from "react";
+import footer from '../../img/footer.png';
 
 const Footer = () => {
   return (
     <footer style={{ textAlign: "center", padding: "20px" }}>
       <img
-        src="../src/img/footer.JPG"
+        src={footer}
         alt="Bitnovo"
       />
     </footer>
