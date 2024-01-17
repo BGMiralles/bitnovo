@@ -61,7 +61,7 @@ input {
 }
 
 .select-container .dropdown-open {
-  top: calc(100% + 5px); /* Ajusta la posición según sea necesario */
+  top: calc(100% + 5px); 
 }
 
 .select-container .selected-option {
