@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Payment from '../Payment/Payment';
 import { PaymentInfo } from '../Summary/PaymentInfo';
 import Ok from '../Ok/Ok';
-import Ko from '../ko/ko';
+import Ko from '../Ko/Ko';
 
 export const Body = () => {
     return (
