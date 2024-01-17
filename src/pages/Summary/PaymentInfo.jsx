@@ -71,6 +71,8 @@ export const PaymentInfo = () => {
     const interval = setInterval(() => {
       if (timeRemaining > 0) {
         setTimeRemaining((prevTime) => prevTime - 1);
+      } else {
+        navigate("/ko");
       }
     }, 1000);
 
