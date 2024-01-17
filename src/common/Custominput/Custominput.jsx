@@ -1,5 +1,4 @@
 import React from "react";
-import "./CustomInput.css";
 
 export const CustomInput = ({ design, type, name, placeholder, value, functionProp, functionBlur, errorMessage }) => {
   return (
