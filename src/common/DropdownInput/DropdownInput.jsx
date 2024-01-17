@@ -15,7 +15,6 @@ export const DropdownInput = ({ value, onChange, options, isOpen, onToggle }) =>
   };
 
   const handleSearchClick = (event) => {
-    // Evita que el clic en la barra de búsqueda cierre el menú
     event.stopPropagation();
   };
 

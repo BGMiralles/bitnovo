@@ -16,9 +16,9 @@
 }
 
 .imagen-ok {
-  width: 80px; /* Ajusta el ancho de la imagen según tu preferencia */
-  height: 80px; /* Ajusta la altura de la imagen según tu preferencia */
-  margin-bottom: 10px; /* Agrega un espacio entre la imagen y el texto */
+  width: 80px;
+  height: 80px; 
+  margin-bottom: 10px; 
 }
 
 .mensaje {
@@ -27,8 +27,8 @@
 }
 
 .nuevo-mensaje {
-  font-size: 16px; /* Ajusta el tamaño del nuevo mensaje según tu preferencia */
-  color: rgba(100, 113, 132, 1); /* Color del nuevo mensaje */
-  margin-top: 8px; /* Agrega un espacio entre los dos mensajes */
+  font-size: 16px; 
+  color: rgba(100, 113, 132, 1); 
+  margin-top: 8px; 
   margin-bottom: 10px;
 }

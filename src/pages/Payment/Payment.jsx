@@ -18,57 +18,9 @@ const Payment = () => {
   useEffect(() => {
     const fetchPaymentOptions = async () => {
       try {
-        // const currenciesResponse = await getCurrencies();
-        // setPaymentOptions(currenciesResponse.data);
-        const currenciesResponse = [
-          {
-            blockchain: "BCH_TEST",
-            image:
-              "https://payments.pre-bnvo.com/media/crytocurrencies/CryptoBCH_Size36_px_TT7Td9Q.png",
-            max_amount: "20000.00",
-            min_amount: "0.05",
-            name: "Bitcoin Cash Test BCH",
-            symbol: "BCH_TEST",
-          },
-          {
-            blockchain: "BTC_TEST",
-            image:
-              "https://payments.pre-bnvo.com/media/crytocurrencies/CurrencyBTC_Size36_px_StrokeON.png",
-            max_amount: "10000.00",
-            min_amount: "0.01",
-            name: "Bitcoin Test BTC",
-            symbol: "BTC_TEST",
-          },
-          {
-            blockchain: "ETH_TEST",
-            image:
-              "https://payments.pre-bnvo.com/media/crytocurrencies/CurrencyETH_Size36_px_StrokeON.png",
-            max_amount: "20000.00",
-            min_amount: "0.05",
-            name: "Ethereum Goerli ETH",
-            symbol: "ETH_TEST3",
-          },
-          {
-            blockchain: "XRP_TEST",
-            image:
-              "https://payments.pre-bnvo.com/media/crytocurrencies/CurrencyXRP_Size36_px_StrokeON.png",
-            max_amount: "20000.00",
-            min_amount: "0.01",
-            name: "Ripple Test XRP",
-            symbol: "XRP_TEST",
-          },
-          {
-            blockchain: "ETH_TEST3",
-            image:
-              "https://payments.pre-bnvo.com/media/crytocurrencies/Property_1USDC_-_Ethereum_StrokeON.png",
-            max_amount: "100.00",
-            min_amount: "0.05",
-            name: "USD Coin USDC",
-            symbol: "USDC_TEST3",
-          },
-        ];
-        setPaymentOptions(currenciesResponse);
-        saveCurrenciesResponse(currenciesResponse);
+        const currenciesResponse = await getCurrencies();
+        setPaymentOptions(currenciesResponse.data);
+        saveCurrenciesResponse(currenciesResponse.data);
       } catch (error) {
         console.error("Error al obtener las opciones de la API:", error);
       }
@@ -89,7 +41,6 @@ const Payment = () => {
       transaccion.concept &&
       isValidRange(transaccion.amount, transaccion.paymentMethod);
     setIsFormValid(isValid);
-
     if (amountModified) {
       handleAmountBlur();
     }
@@ -97,14 +48,12 @@ const Payment = () => {
 
   const functionHandler = (e) => {
     const { name, value } = e.target;
-
     if (name === "concept" && value.length > 511) {
       setConceptErrorMessage("El concepto no puede superar los 511 caracteres");
       return;
     } else {
       setConceptErrorMessage("");
     }
-
     setTransaccion((prevState) => ({
       ...prevState,
       [name]: value,
@@ -132,7 +81,7 @@ const Payment = () => {
       floatValue > maxValue
     ) {
       setAmountErrorMessage(
-        `Formato incorrecto o el importe debe estar entre ${minValue} y ${maxValue}, asegurate de separar los decimales con un punto`
+        `Formato incorrecto o el importe debe estar entre ${minValue} y ${maxValue}, asegurese de separar los decimales con un punto`
       );
     } else {
       setAmountErrorMessage("");

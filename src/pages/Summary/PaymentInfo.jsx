@@ -43,12 +43,10 @@ export const PaymentInfo = () => {
         `wss://payments.pre-bnvo.com/ws/${paymentInfo.identifier}`
       );
       socket.onopen = () => {
-        console.log("Socket connection opened");
       };
 
       socket.onmessage = (e) => {
         const socketData = JSON.parse(e.data);
-        console.log("Socket data received:", socketData);
         setSocketData(socketData);
         if (socketData.status === "EX" || socketData.status === "OC") {
           navigate("/ko");
@@ -58,7 +56,6 @@ export const PaymentInfo = () => {
       };
 
       socket.onclose = () => {
-        console.log("Socket connection closed");
       };
 
       return () => {
@@ -71,6 +68,8 @@ export const PaymentInfo = () => {
     const interval = setInterval(() => {
       if (timeRemaining > 0) {
         setTimeRemaining((prevTime) => prevTime - 1);
+      } else {
+        navigate("/ko");
       }
     }, 1000);
 
@@ -108,7 +107,6 @@ export const PaymentInfo = () => {
     "dd/MM/yyyy HH:mm"
   );
 
-  // Generar datos para el QR
   const qrData = {
     address: paymentData.address,
     crypto_amount: paymentData.crypto_amount,

@@ -171,7 +171,6 @@ h2 {
   border-radius: 100px;
 }
 
-/* Dentro de tu archivo de estilos CSS */
 .tooltip-container {
   position: relative;
   display: inline-flex;
@@ -182,7 +181,7 @@ h2 {
 .copy-button {
   width: 24px;
   height: 24px;
-  margin-left: 5px; /* Ajusta el espacio entre el icono y el texto */
+  margin-left: 5px; 
 }
 
 .tooltip-container::after {
@@ -211,9 +210,9 @@ h2 {
   width: 24px;
   height: 24px;
   z-index: 1;
-  border: none;  /* Agrega esta línea para eliminar cualquier borde */
-  margin: 0;     /* Agrega esta línea para eliminar cualquier margen */
-  padding: 0;    /* Agrega esta línea para eliminar cualquier relleno */
+  border: none;  
+  margin: 0;     
+  padding: 0;    
 }
 
 
